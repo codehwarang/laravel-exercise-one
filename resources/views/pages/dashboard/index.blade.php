@@ -23,5 +23,13 @@
                 {{ session()->pull('message') }}
             </div>
         @endif
+        <section>
+            <h6>Data Products</h6>
+            {{ $dataTable->table() }}
+        </section>
     </main>
 @endsection
+
+@push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush
