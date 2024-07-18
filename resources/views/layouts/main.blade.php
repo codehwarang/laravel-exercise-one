@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <main class="min-vh-100 min-vw-100" style="overflow-x:hidden">
+    <main class="min-vh-100" style="overflow-x:hidden">
         <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('dashboard.main.index') }}">Laravel</a>

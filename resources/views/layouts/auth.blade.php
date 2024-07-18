@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <main class="min-vh-100 min-vw-100 d-flex align-items-center justify-content-center py-5" style="overflow-x:hidden">
+    <main class="min-vh-100 d-flex align-items-center justify-content-center py-5" style="overflow-x:hidden">
         @yield('content')
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -9,7 +9,7 @@
             </div>
         </header>
         <section id="quick-actions" class="d-flex gap-2">
-            <a href="" class="btn btn-primary btn-sm d-flex align-items-center gap-2">
+            <a href="{{ route('dashboard.product.create') }}" class="btn btn-primary btn-sm d-flex align-items-center gap-2">
                 <span>Add Product</span>
                 <i class="ri-add-line"></i>
             </a>
@@ -18,5 +18,10 @@
                 <i class="ri-profile-line"></i>
             </a>
         </section>
+        @if (session()->has('message'))
+            <div class="alert alert-{{ session()->pull('message_type') }}">
+                {{ session()->pull('message') }}
+            </div>
+        @endif
     </main>
 @endsection

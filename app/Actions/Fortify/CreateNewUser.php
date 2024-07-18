@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -37,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'country' => ['required', 'string']
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
@@ -48,5 +49,11 @@ class CreateNewUser implements CreatesNewUsers
             'region' => $input['region'],
             'country' => $input['country']
         ]);
+
+        Log::channel('custom')->info('New user has been registered', [
+            'new_registered_user_id' => $user->id
+        ]);
+
+        return $user;
     }
 }
