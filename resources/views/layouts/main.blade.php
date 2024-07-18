@@ -21,14 +21,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <span class="nav-link active">{{ auth()->user()->name }}</span>
+                            <span class="nav-link active">{{ auth()->user()->name ?? 'Guest' }}</span>
                         </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <input type="submit" class="nav-link text-danger" value="Logout">
-                            </form>
-                        </li>
+                        @if (auth()->check())
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <input type="submit" class="nav-link text-danger" value="Logout">
+                                </form>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
