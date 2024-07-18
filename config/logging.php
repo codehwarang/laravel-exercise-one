@@ -61,7 +61,6 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
 
@@ -126,6 +125,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'custom' => [
+            'driver' => 'custom',
+            'via' => \App\Logs\Logger::class
+        ]
 
     ],
 
