@@ -46,3 +46,20 @@ php artisan storage:link
 # serve the application
 php artisan serve
 ```
+
+### Techs Explained
+
+This project was done to accomplish the exercise given by my senior. Below are the checklists of my tasks.
+
+-   [x] Do learn Laravel request (includes the HTTP Request and Form Request). Pretty much done implemented in handling products creation.
+-   [x] Do learn about handling error and logging using both file and database. Done implemented using custom logger with the monolog customization (https://laravel.com/docs/11.x/logging#creating-custom-channels-via-factories).
+-   [x] Do learn about datatables (using the db query). In this case, I found the most suitable solution for this point is to use Datatable library made by Yajra (https://yajrabox.com/).
+
+### Features Explained
+
+This small project may not contains full-features yet. This below list is the features that currently supported.
+
+-   Login/Register/Logout (Basic Authentication using Fortify)
+-   Read Products (Yajra Datatable)
+-   Create Product
+-   Dual Logging (File and Database)
