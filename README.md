@@ -54,6 +54,7 @@ This project was done to accomplish the exercise given by my senior. Below are t
 -   [x] Do learn Laravel request (includes the HTTP Request and Form Request). Pretty much done implemented in handling products creation.
 -   [x] Do learn about handling error and logging using both file and database. Done implemented using custom logger with the monolog customization (https://laravel.com/docs/11.x/logging#creating-custom-channels-via-factories).
 -   [x] Do learn about datatables (using the db query). In this case, I found the most suitable solution for this point is to use Datatable library made by Yajra (https://yajrabox.com/).
+-   [x] Implementing DTO (Data Transfer Object) in Laravel, based on this example (https://medium.com/@mohammad.roshandelpoor/dto-data-transfer-objects-in-laravel-6b391e1c2c29).
 
 ### Features Explained
 
@@ -61,5 +62,5 @@ This small project may not contains full-features yet. This below list is the fe
 
 -   Login/Register/Logout (Basic Authentication using Fortify)
 -   Read Products (Yajra Datatable)
--   Create Product
+-   Create Product (DTO implementation)
 -   Dual Logging (File and Database)
