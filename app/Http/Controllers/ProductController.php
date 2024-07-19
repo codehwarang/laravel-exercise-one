@@ -17,12 +17,11 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(CreateProductRequest $request)
+    public function store(CreateProductRequest $request, ProductService $productService)
     {
         try {
             $data = $request->validated();
 
-            $productService = new ProductService();
             $productDto = new ProductDTO(
                 $data['sku'],
                 $data['name'],
