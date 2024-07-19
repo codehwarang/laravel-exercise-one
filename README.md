@@ -55,6 +55,8 @@ This project was done to accomplish the exercise given by my senior. Below are t
 -   [x] Do learn about handling error and logging using both file and database. Done implemented using custom logger with the monolog customization (https://laravel.com/docs/11.x/logging#creating-custom-channels-via-factories).
 -   [x] Do learn about datatables (using the db query). In this case, I found the most suitable solution for this point is to use Datatable library made by Yajra (https://yajrabox.com/).
 -   [x] Implementing DTO (Data Transfer Object) in Laravel, based on this example (https://medium.com/@mohammad.roshandelpoor/dto-data-transfer-objects-in-laravel-6b391e1c2c29).
+-   [x] Automatic injection by Laravel is implemented while loading services.
+-   [x] Reducing redundancy of codes by using traits.
 
 ### Features Explained
 
