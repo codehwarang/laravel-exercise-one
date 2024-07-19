@@ -3,11 +3,14 @@
 namespace App\Dto;
 
 use App\Models\Product;
+use App\Traits\HasImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 readonly class ProductImageDTO
 {
+    use HasImage;
+
     public string|int $productId;
     public string $url;
     public bool $isThumbnail;
@@ -26,16 +29,9 @@ readonly class ProductImageDTO
     {
         $specialIdentifier = $this->isThumbnail
             ? '-Thumb.'
-            : '-Img-' . str(uniqid())->title() . '.';
+            : '-Img-' . str(uniqid())->title();
 
-        $thumbnailFilename = $this->product->sku . $specialIdentifier . $file->getClientOriginalExtension();
-        $savedThumbnailFilename = $file->storeAs(
-            'product_images',
-            $thumbnailFilename,
-            'public'
-        );
-
-        return $savedThumbnailFilename;
+        return $this->uploadImage($file, $specialIdentifier, 'product_images');
     }
 
     public function undoSavedImage(): bool

@@ -6,10 +6,13 @@ use App\Dto\ProductDTO;
 use App\Dto\ProductImageDTO;
 use App\Http\Requests\CreateProductRequest;
 use App\Services\ProductService;
+use App\Traits\HasFlash;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
+    use HasFlash;
+
     public function create()
     {
         return view('pages.product.create', [
@@ -48,10 +51,7 @@ class ProductController extends Controller
             ]);
 
             return to_route('dashboard.main.index')
-                ->with([
-                    'message' => "New product has been added ({$product->sku})",
-                    'message_type' => 'success'
-                ]);
+                ->with($this->flashMessage("New product has been added ({$product->sku})", 'success'));
         } catch (\Exception $e) {
             Log::channel('custom')->error('Something went wrong', [
                 'message' => $e->getMessage(),
@@ -59,10 +59,7 @@ class ProductController extends Controller
             ]);
 
             return to_route('dashboard.main.index')
-                ->with([
-                    'message' => 'Something went wrong! Your product is not being added.',
-                    'message_type' => 'warning'
-                ]);
+                ->with($this->flashMessage('Something went wrong! Your product is not being added.', 'warning'));
         }
     }
 }
