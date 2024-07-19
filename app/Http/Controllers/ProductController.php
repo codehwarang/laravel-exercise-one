@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\ProductDTO;
+use App\Dto\ProductImageDTO;
 use App\Http\Requests\CreateProductRequest;
-use App\Models\Product;
-use App\Models\ProductImage;
-use Illuminate\Http\Request;
+use App\Services\ProductService;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -22,44 +22,26 @@ class ProductController extends Controller
         try {
             $data = $request->validated();
 
-            $product = new Product([
-                'sku' => $data['sku'],
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'price' => $data['price'],
-                'category' => $data['category']
-            ]);
+            $productService = new ProductService();
+            $productDto = new ProductDTO(
+                $data['sku'],
+                $data['name'],
+                $data['description'],
+                $data['price'],
+                $data['category']
+            );
 
-            if ($product->save()) {
-                $thumbnailFilename = $data['sku'] . '-Thumb.' . $data['thumbnail_image']->getClientOriginalExtension();
-                $savedThumbnailFilename = $data['thumbnail_image']->storeAs(
-                    'product_images',
-                    $thumbnailFilename,
-                    'public'
-                );
+            $product = $productService->createProduct($productDto);
 
-                (new ProductImage([
-                    'product_id' => $product->id,
-                    'url' => $savedThumbnailFilename,
-                    'is_thumbnail' => true
-                ]))->save();
+            $thumbnailImageDto = new ProductImageDTO($product, $data['thumbnail_image'], true);
+            $additionalImagesDto = [$thumbnailImageDto];
 
-                if ($request->hasFile('additional_images')) {
-                    foreach ($data['additional_images'] as $key => $image) {
-                        $filename = $data['sku'] . '-Img-' . ($key + 1) . '.' . $image->getClientOriginalExtension();
-                        $savedFilename = $image->storeAs(
-                            'product_images',
-                            $filename,
-                            'public'
-                        );
-
-                        (new ProductImage([
-                            'product_id' => $product->id,
-                            'url' => $savedFilename,
-                            'is_thumbnail' => false
-                        ]))->save();
-                    }
+            if ($request->hasFile('additional_images') || !empty($data['additional_images'])) {
+                foreach ($data['additional_images'] as $additionalImage) {
+                    $additionalImagesDto[] = new ProductImageDTO($product, $additionalImage, false);
                 }
+
+                $productService->createProductImages($product, $additionalImagesDto);
             }
 
             Log::channel('custom')->info('New product has been added', [
